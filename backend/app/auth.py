@@ -19,14 +19,7 @@ def load_user_from_request(request):
         user = load_token(api_key)
         if user:
             return user
-    # TODO; try loading user from session
     return None
-
-
-@login_manager.user_loader
-def load_user(user_id):
-    user = load_user_from_request(request)
-    return user
 
 
 @login_manager.token_loader
@@ -36,30 +29,6 @@ def load_token(token):
     if user and data[1] == user.password_hash:
         return user
     return None
-
-
-@auth_api.route('/login', methods=['POST'])
-def login():
-    """
-    Session-Based Login;
-    user submits username + password and session cookie is created and
-    stored on the client
-    """
-    data = json.loads(request.data)
-    username = data.get('username')
-    password = data.get('password')
-
-    if username is None or password is None:
-        abort(400)
-    user_record = User.query.filter_by(username=username).first()
-    if user_record is None:
-        abort(400)
-
-    if user_record.verify_password(password):
-        # Create session cookie and send to client
-        login_user(user_record)
-        return jsonify({'login': 'success'}), 201
-    abort(400)
 
 
 @auth_api.route('/access_token', methods=['POST'])
