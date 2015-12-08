@@ -1,6 +1,10 @@
 # Task List Backend
 
 ## Angular App
+Run the following to start the server:
+
+    cd frontend
+    http-server
 
 ## REST API
 ### Authentication
