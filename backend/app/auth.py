@@ -14,7 +14,8 @@ login_serializer = URLSafeTimedSerializer('SECRET KEY')
 @login_manager.request_loader
 def load_user_from_request(request):
     # first, try to login using the api_key url arg
-    api_key = request.args.get('api_key')
+    api_key = request.headers.get('Authorization')
+
     if api_key:
         user = load_token(api_key)
         if user:

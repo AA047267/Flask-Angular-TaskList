@@ -18,8 +18,28 @@ appServices.factory('Auth', ['$http', '$localStorage', function ($http, $localSt
         },
         logout: function () {
             // REMEMBER: The backend doesn't care about logouts, delete the token and you're good to go.
-            // todo
         }
+    }
+
+}]);
+
+
+appServices.service('TaskServices' ['$http', function($http) {
+
+    $http.defaults.headers.post["Content-Type"] = "application/json";
+
+    return {
+        getTasks: function () {
+            return $http.get('http://localhost:5000/api/tasks');
+        },
+        getTask: function (taskId) {
+            return $http.get('http://localhost:5000/api/tasks/' + taskId);
+        },
+        postTask: function() {
+            return $http.post();
+        }
+
+
     }
 
 }]);
