@@ -25,4 +25,12 @@ def create_app(config_file):
     api.add_resource(TaskApi, '/api/tasks/<int:id>', endpoint='task')
     api.add_resource(UserApi, '/api/users', endpoint='user')
 
+    # FOR DEVELOPMENT ONLY
+    @application.after_request
+    def after_request(response):
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+        response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+        return response
+
     return application

@@ -50,5 +50,5 @@ def access_token():
 
     if user_record.verify_password(password):
         access_token = user_record.get_auth_token()
-        return jsonify({'access_token': access_token}), 201
+        return jsonify({'access_token': access_token, 'username': 'test'}), 201
     abort(400)
